@@ -25,4 +25,19 @@ class AuthController extends Controller
             $request->rememberMe ?? false
         );
     }
+
+    public function logout(Request $request)
+    {
+
+    }
+
+    public function requestOtp(Request $request)
+    {
+
+    }
+
+    public function verifyOtp(Request $request)
+    {
+
+    }
 }

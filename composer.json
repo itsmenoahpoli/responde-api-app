@@ -16,7 +16,8 @@
         "laravel/framework": "^8.0",
         "laravel/sanctum": "^2.15",
         "laravel/tinker": "^2.0",
-        "spatie/laravel-activitylog": "^3.17"
+        "spatie/laravel-activitylog": "^3.17",
+        "vonage/client": "^3.0"
     },
     "require-dev": {
         "facade/ignition": "^2.3.6",
