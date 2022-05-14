@@ -34,14 +34,24 @@ class DefaultUsersSeeder extends Seeder
                 'first_name' => 'Kurt',
                 'middle_name' => '',
                 'last_name' => 'Fuentes',
-                'email' => 'johndoe@domain.com',
+                'email' => 'kurtfuentes@domain.com',
                 'password' => bcrypt('superAdmin2022$'),
             ],
         ];
 
+        $idx = 0;
+
         foreach($users as $user)
         {
-
+            $userRoleId = $idx + 1;
+            User::create([
+                'user_role_id' => $userRoleId,
+                'first_name' => $user->first_name,
+                'middle_name' => $user->middle_name,
+                'last_name' => $user->last_name,
+                'email' => $user->email,
+                'password' => $user->password,
+            ]);
         }
     }
 }

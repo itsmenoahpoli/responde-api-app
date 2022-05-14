@@ -8,14 +8,17 @@ class AuthService
 {
     public function userLogin($user, $rememberMe = false)
     {
+
         try
         {
-            if (Auth::attempt($user))
+            if (Auth::attempt($user, $rememberMe))
             {
                 $authToken = Auth::user()->createToken(
-                    time().'-'.Auth::user()->email,
-                    $rememberMe
+                    time().'-'.Auth::user()->email
                 )->plainTextToken;
+
+                // Show user-role
+                Auth::user()->user_role;
 
                 return response()->json([
                     'user' => Auth::user(),
