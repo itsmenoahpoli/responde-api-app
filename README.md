@@ -23,6 +23,6 @@ php artisan db:seed
 php artisan serve
 ```
 
-<small>
-    After completing the commands above, proceed to open your browser then go to `http://localhost:8000/doc` to view the API documentation powered by laravel-scribe
-</small>
+After completing the commands above, proceed to open your browser then go to `http://localhost:8000/doc` to view the API documentation powered by laravel-scribe
+
+To download the postman collection file, go to `public/docs/collection.json`
