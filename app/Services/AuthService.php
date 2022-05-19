@@ -2,17 +2,26 @@
 
 namespace App\Services;
 
+use App\Traits\SessionLogTrait;
+
 use Auth;
 
 class AuthService
 {
-    public function userLogin($user, $rememberMe = false)
+    use SessionLogTrait;
+
+    public function userLogin($user, $rememberMe = false, $ip = '')
     {
 
         try
         {
             if (Auth::attempt($user, $rememberMe))
             {
+                $sessionStart = $this->startSession(
+                    Auth::user(),
+                    $ip
+                );
+
                 $authToken = Auth::user()->createToken(
                     time().'-'.Auth::user()->email
                 )->plainTextToken;
@@ -20,8 +29,12 @@ class AuthService
                 // Show user-role
                 Auth::user()->user_role;
 
+                // Check if 2-factor-authentication is enabled
+
+
                 return response()->json([
                     'user' => Auth::user(),
+                    'session' => $sessionStart,
                     'authToken' => $authToken
                 ]);
             }
@@ -33,6 +46,48 @@ class AuthService
         } catch (Exception $e)
         {
             response()->json(
+                $e->getMessage(),
+                500
+            );
+        }
+    }
+
+    public function userLogout($user)
+    {
+        try
+        {
+
+        } catch (Exception $e)
+        {
+            return response()->json(
+                $e->getMessage(),
+                500
+            );
+        }
+    }
+
+    public function userVerify($user)
+    {
+        try
+        {
+
+        } catch (Exception $e)
+        {
+            return response()->json(
+                $e->getMessage(),
+                500
+            );
+        }
+    }
+
+    public function userResetPassword($user)
+    {
+        try
+        {
+
+        } catch (Exception $e)
+        {
+            return response()->json(
                 $e->getMessage(),
                 500
             );

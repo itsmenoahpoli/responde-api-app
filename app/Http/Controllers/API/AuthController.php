@@ -22,7 +22,8 @@ class AuthController extends Controller
     {
         return $this->authService->userLogin(
             $request->only('email', 'password'),
-            $request->rememberMe ?? false
+            $request->rememberMe ?? false,
+            $request->ip()
         );
     }
 

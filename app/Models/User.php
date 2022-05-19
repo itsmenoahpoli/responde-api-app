@@ -22,9 +22,24 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    /** Query scopes */
+    public function scopeSearch($q, $query)
+    {
+        return $query->where('first_name', 'LIKE', "%{$q}%")
+        ->orWhere('middle_name', 'LIKE', "%{$q}%")
+        ->orWhere('last_name', 'LIKE', "%{$q}%")
+        ->orWhere('email', 'LIKE', "%{$q}%")
+        ->get();
+    }
+
     /** Relationships */
     public function user_role()
     {
         return $this->belongsTo('App\Models\Users\UserRole');
+    }
+
+    public function emergencies()
+    {
+        return $this->hasMany('App\Models\Emergencies\Emergency');
     }
 }
