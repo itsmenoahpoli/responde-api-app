@@ -10,7 +10,7 @@ class AuthService
 {
     use SessionLogTrait;
 
-    public function userLogin($user, $rememberMe = false, $ip = '')
+    public function userLogin($user, $rememberMe = false, $userIpAddress = '')
     {
 
         try
@@ -19,7 +19,7 @@ class AuthService
             {
                 $sessionStart = $this->startSession(
                     Auth::user(),
-                    $ip
+                    $userIpAddress
                 );
 
                 $authToken = Auth::user()->createToken(
