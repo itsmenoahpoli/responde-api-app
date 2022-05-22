@@ -17,14 +17,15 @@ class AuthService
         {
             if (Auth::attempt($user, $rememberMe))
             {
-                $sessionStart = $this->startSession(
-                    Auth::user(),
-                    $userIpAddress
-                );
-
                 $authToken = Auth::user()->createToken(
                     time().'-'.Auth::user()->email
                 )->plainTextToken;
+
+                $sessionStart = $this->startSession(
+                    Auth::user(),
+                    $userIpAddress,
+                    $authToken
+                );
 
                 // Show user-role
                 Auth::user()->user_role;
@@ -36,7 +37,7 @@ class AuthService
                     'user' => Auth::user(),
                     'session' => $sessionStart,
                     'authToken' => $authToken
-                ]);
+                ], 200);
             }
 
             return response()->json(
@@ -52,11 +53,16 @@ class AuthService
         }
     }
 
-    public function userLogout($user)
+    public function userLogout($session)
     {
         try
         {
+            $sessionEnd = $this->endSession($session);
 
+            return response()->json(
+                $sessionEnd,
+                200
+            );
         } catch (Exception $e)
         {
             return response()->json(

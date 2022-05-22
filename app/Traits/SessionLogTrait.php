@@ -14,13 +14,14 @@ trait SessionLogTrait
 
     }
 
-    public function startSession($user, $ip)
+    public function startSession($user, $ip, $authToken)
     {
         try
         {
             return UserSessionLog::create([
                 's_uid' => Str::uuid(),
                 'user_id' => $user->id,
+                'api_token' => $authToken,
                 'session_start' => Carbon::now(),
                 'session_ip' => $ip
             ]);
@@ -30,15 +31,33 @@ trait SessionLogTrait
         }
     }
 
-    public function endSession($user, $session)
+    public function endSession($request)
     {
         try
         {
-            // TODO: Retrieve user session via session unique id then end session
-            return UserSessionLog::findOrFail();
+            $session = UserSessionLog::where('api_token', $request->bearerToken())->first();
+
+            $session_duration = $this->calcSessionDuration($session->session_start);
+
+            $endedSession = UserSessionLog::whereId($session->id)->update([
+                'session_end' => Carbon::now(),
+                'session_duration' => $session_duration.'m'
+            ]);
+
+            return UserSessionLog::whereId($session->id)->first();
         } catch (Exception $e)
         {
             throw $e->getMessage();
         }
+    }
+
+    private function calcSessionDuration($sessionStart)
+    {
+        return Carbon::createFromFormat(
+                'Y-m-d H:i:s',
+                $sessionStart
+            )->diffInMinutes(
+                Carbon::now()
+            );
     }
 }

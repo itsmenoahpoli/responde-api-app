@@ -8,12 +8,13 @@ use App\Http\Controllers\API\AuthController;
 
 Route::group(['prefix' => 'v1'], function() {
     // AUTH API
-    Route::prefix('auth')->group(function() {
+    Route::group(['prefix' => 'auth'], function() {
         Route::post('login', [AuthController::class, 'login'])->name('api.auth.login');
+        Route::post('logout', [AuthController::class, 'logout'])->name('api.auth.logout')->middleware('auth:sanctum');
     });
 
     // SMS API
-    Route::prefix('sms')->group(function() {
+    Route::group(['prefix' => 'sms'], function() {
         Route::post('send', [SMSController::class, 'send'])->name('api.sms.send');
     });
 });

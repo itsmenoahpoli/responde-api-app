@@ -29,7 +29,7 @@ class AuthController extends Controller
 
     public function logout(Request $request)
     {
-
+        return $this->authService->userLogout($request);
     }
 
     public function requestOtp(Request $request)
