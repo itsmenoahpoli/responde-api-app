@@ -23,4 +23,9 @@ class EmergencyType extends Model
     {
         return $this->hasMany('App\Models\Emergencies\EmergencySos');
     }
+
+    public function emergency_sms_templates()
+    {
+        return $this->hasMany('App\Models\Emergencies\Emergency\Sms');
+    }
 }

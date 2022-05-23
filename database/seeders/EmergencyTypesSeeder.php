@@ -15,6 +15,30 @@ class EmergencyTypesSeeder extends Seeder
      */
     public function run()
     {
-        $emergencyTypes = [];
+        $emergencyTypes = [
+            'BUILDING-COLLAPSE',
+            'CONSTRUCTION-ACCIDENTS',
+            'ELECTRICAL-ACCIDENTS',
+            'MACHINE-ACCIDENTS',
+            'STRUCT-BY-ACCIDENTS',
+            'CAUGHT-IN-BETWEEN-ACCIDENTS',
+            'CRANE-ACCIDENTS',
+            'HEAVY-EQUIPMENT-COLLAPSE',
+            'SLIPS-TRIPS-FALLS',
+            'VEHICLE-ACCIDENTS',
+            'LANDSLIDE-ACCIDENTS',
+            'FIRE-ACCIDENTS',
+            'TERRORIST-ATTACK',
+            'VOLCANIC-ERUPTION',
+            'OTHERS',
+        ];
+
+        foreach ($emergencyTypes as $emergencyType)
+        {
+            EmergencyType::create([
+                'name' => $emergencyType,
+                'is_enabled' => 1
+            ]);
+        }
     }
 }

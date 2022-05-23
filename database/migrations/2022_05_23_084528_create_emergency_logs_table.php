@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateEmergencySosTable extends Migration
+class CreateEmergencyLogsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,10 @@ class CreateEmergencySosTable extends Migration
      */
     public function up()
     {
-        Schema::create('emergency_sos', function (Blueprint $table) {
+        Schema::create('emergency_logs', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained('users');
-            $table->text('location')->comment(
-                'JSON object value keys [current_location, longtitude, latitude]'
-            );
-            $table->string('status')->default('PENDING');
+            $table->foreignId('emergency_sos_id')->constrained('emergency_sos')->restrictOnDelete();
+            $table->foreignId('emergency_sms_template_id')->constrained('emergency_sms_templates')->restrictOnDelete();
             $table->timestamps();
         });
     }
@@ -31,6 +28,6 @@ class CreateEmergencySosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('emergency_sos');
+        Schema::dropIfExists('emergency_logs');
     }
 }

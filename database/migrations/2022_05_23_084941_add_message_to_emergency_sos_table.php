@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddEmergencyTypeIdToEmergencySosTable extends Migration
+class AddMessageToEmergencySosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,7 +14,7 @@ class AddEmergencyTypeIdToEmergencySosTable extends Migration
     public function up()
     {
         Schema::table('emergency_sos', function (Blueprint $table) {
-            $table->foreignId('emergency_type_id')->nullable()->after('user_id')->constrained('emergency_types')->nullOnDelete();
+            $table->longText('message')->after('location');
         });
     }
 
@@ -26,7 +26,7 @@ class AddEmergencyTypeIdToEmergencySosTable extends Migration
     public function down()
     {
         Schema::table('emergency_sos', function (Blueprint $table) {
-            $table->dropColumn(['emergency_type_id']);
+            $table->dropColumn(['message']);
         });
     }
 }

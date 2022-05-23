@@ -16,6 +16,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             UserRolesSeeder::class,
             DefaultUsersSeeder::class,
+            EmergencyTypesSeeder::class
         ]);
     }
 }
