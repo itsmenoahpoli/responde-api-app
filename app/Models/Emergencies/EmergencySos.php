@@ -16,4 +16,9 @@ class EmergencySos extends Model
     {
         return $this->belongsTo('App\Models\User');
     }
+
+    public function emergency_type()
+    {
+        return $this->belongsTo('App\Models\Emergencies\EmergencyType');
+    }
 }

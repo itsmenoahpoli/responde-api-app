@@ -15,7 +15,11 @@ class UserRolesSeeder extends Seeder
      */
     public function run()
     {
-        $roles = ['superadmin', 'admin', 'resident'];
+        $roles = [
+            'superadmin',
+            'admin',
+            'resident'
+        ];
 
         foreach($roles as $role)
         {
