@@ -33,12 +33,30 @@ class EmergencyTypesSeeder extends Seeder
             'OTHERS',
         ];
 
-        foreach ($emergencyTypes as $emergencyType)
+        for ($e = 0; $e < count($emergencyTypes); $e++)
         {
+            $emergencyCode = $e + 1;
+
             EmergencyType::create([
-                'name' => $emergencyType,
+                'code' => "EMRGNCY-{$this->formatDigit($emergencyCode)}",
+                'name' => $emergencyTypes[$e],
                 'is_enabled' => 1
             ]);
         }
+    }
+
+    public function formatDigit(int $digit)
+    {
+        if ($digit < 10)
+        {
+            return '00'.$digit;
+        }
+
+        if ($digit > 10)
+        {
+            return '0'.$digit;
+        }
+
+        return $digit;
     }
 }
