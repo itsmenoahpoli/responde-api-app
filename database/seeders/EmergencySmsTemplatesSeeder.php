@@ -32,9 +32,6 @@ class EmergencySmsTemplatesSeeder extends Seeder
 
     public function makeSmsTemplate($emergencyType)
     {
-        return <<<EOD
-            [$emergencyType->code] $emergencyType->name - REPORTED FROM LOCATION: Longtitude 121.023415 Latitude 14.556586 (Makati, Metro Manila, Philippines)
-            BY USER user::name AT report::currentTime
-        EOD;
+        return "[$emergencyType->code] $emergencyType->name - REPORTED FROM LOCATION: Longtitude {location::long} Latitude {location::lat} {location::pinpointAddress} BY USER {user::name} CONTACT NO. {user::contactNo} AT {report::currentTime}";
     }
 }

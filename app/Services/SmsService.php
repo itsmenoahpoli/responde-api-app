@@ -4,6 +4,8 @@ namespace App\Services;
 
 class SmsService
 {
+    // protected $MDRRMC_NO = '09770840756';
+    protected $MDRRMC_NO = '09088496955';
     private $vonageCredentials;
     private $vonageClient;
     private $vonageSms;
@@ -59,15 +61,26 @@ class SmsService
         try
         {
             return $this->vonageSendSms([
-                'to' => '639088496955',
+                'to' => $this->MDRRMC_NO,
                 'message' => 'GO RESPONDE APP: SOS! My current location is 14.5995° N, 120.9842° E'
             ]);
         } catch (Exception $e)
         {
-            return response()->json(
-                $e->getMessage(),
-                500
-            );
+            throw $e->getMessage();
+        }
+    }
+
+    public function sendSmsToMDRRMC($message)
+    {
+        try
+        {
+            return $this->vonageSendSms([
+                'to' => '639088496955',
+                'message' => $message
+            ]);
+        } catch (Exception $e)
+        {
+            throw $e->getMessage();
         }
     }
 }

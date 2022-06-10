@@ -1,19 +1,27 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\API;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class APIEmergencyTypesController extends Controller
+use App\Models\Emergencies\EmergencySmsTemplate;
+
+class EmergencySmsTemplatesController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $search = $request->query();
+
+        return response()->json(
+            EmergencySmsTemplate::with('emergency_type')->get(),
+            200
+        );
     }
 
     /**
@@ -24,7 +32,10 @@ class APIEmergencyTypesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return response()->json(
+            EmergencySmsTemplate::create($request->all()),
+            201
+        );
     }
 
     /**
@@ -35,7 +46,10 @@ class APIEmergencyTypesController extends Controller
      */
     public function show($id)
     {
-        //
+        return response()->json(
+            EmergencySmsTemplate::findOrFail($id),
+            200
+        );
     }
 
     /**
@@ -47,7 +61,10 @@ class APIEmergencyTypesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        return response()->json(
+            EmergencySmsTemplate::findOrFail($id)->update($request->all()),
+            200
+        );
     }
 
     /**
@@ -58,6 +75,9 @@ class APIEmergencyTypesController extends Controller
      */
     public function destroy($id)
     {
-        //
+        return response()->json(
+            EmergencySmsTemplate::findOrFail($id)->delete(),
+            204
+        );
     }
 }
