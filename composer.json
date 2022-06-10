@@ -13,11 +13,9 @@
         "fideloper/proxy": "^4.2",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
-        "knuckleswtf/scribe": "^3.27",
         "laravel/framework": "^8.0",
         "laravel/sanctum": "^2.15",
         "laravel/tinker": "^2.0",
-        "spatie/laravel-activitylog": "^3.17",
         "vonage/client": "^3.0"
     },
     "require-dev": {
